@@ -75,6 +75,7 @@ export default {
 <style scoped>
 .details {
   width: 416px;
+  height: 630px;
   border: 0.25px solid #ffb500;
 }
 .tweet {

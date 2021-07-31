@@ -38,9 +38,9 @@
           </h4>
         </div>
       </div>
-      <div class="content flex w-10/12 mx-auto">
+      <div class="content flex w-10/12 mx-auto space-x-5">
         <portfolio v-if="showCard" @close="showCard = !showCard" />
-        <div class="mt-8 w-2/3">
+        <div :class="varWidth" class="mt-8">
           <port-images :selectedTab="selectedTab" />
           <availability :selectedTab="selectedTab" />
           <pricing :selectedTab="selectedTab" />
@@ -63,6 +63,16 @@ export default {
       selectedTab: "Portfolio",
       showCard: false,
     };
+  },
+  computed: {
+    varWidth() {
+      // let width = "w-full";
+      if (this.showCard) {
+        return "w-2/3"
+      } else {
+        return "w-full"
+      }
+    }
   },
 };
 </script>
