@@ -1,7 +1,7 @@
 <template>
-  <div class="details transform -translate-y-60 rounded flex flex-col items-center bg-white">
-    <p @click="$emit('close')" class="self-end mr-3 mt-2 text-sm text-px-pri">Hide</p>
-    <img class=" w-28" src="../assets/avi.png" alt="user avatar" />
+  <div class="details rounded flex flex-col items-center bg-white">
+    <p @click="$emit('close')" class="cursor-pointer self-end mr-3 mt-2 text-sm text-px-pri">Hide</p>
+    <img @click="$emit('open')" class=" w-28" src="../assets/avi.png" alt="user avatar" />
     <p class="font-semibold mt-4 text-4xl">Ekemini Mark</p>
     <p class="text-base text-center w-11/12">
       I’m a wedding and portrait photographer based in Lagos, Nigeria. I’ve been
@@ -69,6 +69,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      showDP: false
+    }
+  },
 };
 </script>
 

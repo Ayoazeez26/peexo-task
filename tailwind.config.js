@@ -10,6 +10,12 @@ module.exports = {
           body: "#FFFDF7",
           fade: "#4D4D4D"
         }
+      },
+      screens: {
+        big: '1320px'
+      },
+      borderRadius: {
+        'cus': '10px'
       }
     },
   },

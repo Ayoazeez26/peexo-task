@@ -1,6 +1,8 @@
 <template>
   <div>
-    <header class="h-16 flex items-center w-full">
+    <header
+      :class="{ 'scrolledNav': !view.atTopOfPage}"
+      class="h-16 flex items-center w-full bg-white z-30">
       <div
         class="header-content flex items-center justify-between w-11/12 mx-auto"
       >
@@ -19,27 +21,32 @@
         </nav>
       </div>
     </header>
-    <section class="w-full bg-px-body mt-6">
+    <section class="w-full relative bg-px-body mt-6">
       <div class="body-bg mx-auto  rounded-xl w-11/12 h-60"></div>
-      <div class="flex h-20 items-center mx-auto w-5/6">
-        <div class="profile flex items-center w-1/3">
-          <img class="w-12" src="../assets/avi.png" alt="Profile Picture" />
-          <p @click="showCard = !showCard" class="text-px-pri ml-2 text-sm">Show Card</p>
-        </div>
-        <div class="tabs flex items-center w-2/3">
-          <h4
-            v-for="(tab, index) in tabs"
-            :key="index"
-            class="cursor-pointer text-sm mx-2 px-8 py-3 relative"
-            :class="{ activeTab: selectedTab === tab }"
-            @click="selectedTab = tab"
-          >
-            {{ tab }}
-          </h4>
+      <div
+          :class="{ 'scrolled': !view.atTopOfSection }" class="tabParent bg-px-body h-20 flex items-center w-full">
+        <div
+          class="flex items-center relative justify-center mx-auto w-5/6">
+          <div v-if="!showCard" class="profile absolute left-0 top-0 flex items-center w-1/3">
+            <img class="w-12" src="../assets/avi.png" alt="Profile Picture" />
+            <p @click="showCard = !showCard" class="cursor-pointer text-px-pri ml-2 text-sm">Show Card</p>
+          </div>
+          <div class="ml-48 big:ml-0 tabs flex items-center">
+            <h4
+              v-for="(tab, index) in tabs"
+              :key="index"
+              class="cursor-pointer text-sm mx-2 px-5 py-3 relative"
+              :class="{ activeTab: selectedTab === tab }"
+              @click="selectedTab = tab"
+            >
+              {{ tab }}
+            </h4>
+          </div>
         </div>
       </div>
-      <div class="content flex w-10/12 mx-auto space-x-5">
-        <portfolio v-if="showCard" @close="showCard = !showCard" />
+      
+      <portfolio class="fixed top-32 big:left-20 left-28" v-if="showCard" @open="showDP = !showDP" @close="showCard = !showCard" />
+      <div class="content flex justify-end w-10/12 mx-auto space-x-5">
         <div :class="varWidth" class="mt-8">
           <port-images :selectedTab="selectedTab" />
           <availability :selectedTab="selectedTab" />
@@ -47,6 +54,7 @@
         </div>
       </div>
     </section>
+    <profile-pic v-if="showDP" @close="showDP = !showDP" />
   </div>
 </template>
 
@@ -55,25 +63,52 @@ import Portfolio from './Portfolio.vue';
 import Availability from './Availability.vue';
 import PortImages from './PortImages.vue';
 import Pricing from './Pricing.vue';
+import ProfilePic from './ProfilePic.vue';
 export default {
-  components: { Portfolio, Availability, PortImages, Pricing },
+  components: { Portfolio, Availability, PortImages, Pricing, ProfilePic },
   data() {
     return {
+      view: {
+        atTopOfPage: true,
+        atTopOfSection: true
+      },
       tabs: ["Portfolio", "Availability", "Pricing Package"],
       selectedTab: "Portfolio",
       showCard: false,
+      showDP: false
     };
+  },
+  beforeMount () {
+    window.addEventListener('scroll', this.handleScroll);
   },
   computed: {
     varWidth() {
       // let width = "w-full";
       if (this.showCard) {
-        return "w-2/3"
+        return "w-7/12 big:w-2/3"
       } else {
         return "w-full"
       }
     }
   },
+  methods: {
+    handleScroll () {
+      if(window.pageYOffset>0){
+        // user is scrolled
+        if(this.view.atTopOfPage) this.view.atTopOfPage = false
+      }else{
+        // user is at top of Page
+        if(!this.view.atTopOfPage) this.view.atTopOfPage = true
+      }
+      if(window.pageYOffset>268){
+        // user is scrolled
+        if(this.view.atTopOfSection) this.view.atTopOfSection = false
+      }else{
+        // user is at top of Section
+        if(!this.view.atTopOfSection) this.view.atTopOfSection = true
+      }
+    }
+  }
 };
 </script>
 
@@ -83,6 +118,12 @@ header {
 }
 .body-bg {
   background-image: url("../assets/image-bg.jpg");
+}
+.scrolled {
+  @apply sticky top-16;
+}
+.scrolledNav {
+  @apply sticky top-0
 }
 .activeTab {
   border-radius: 19px;
