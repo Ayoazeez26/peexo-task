@@ -17,14 +17,14 @@
             <li>MarketPlace</li>
             <li>XooCam</li>
           </ul>
-          <p class="text-px-pri ml-40">Join Peexo</p>
+          <p class="text-px-pri flex items-center ml-40">Join Peexo <img src="../assets/arrow-down-s-fill.svg" alt="arrow-down-fill"></p>
         </nav>
       </div>
     </header>
     <section class="w-full relative bg-px-body mt-6">
       <div class="body-bg mx-auto  rounded-xl w-11/12 h-60"></div>
       <div
-          :class="{ 'scrolled': !view.atTopOfSection }" class="tabParent bg-px-body h-20 flex items-center w-full">
+          :class="{ 'scrolled': !view.atTopOfSection }" class="tabParent bg-px-body h-20 flex items-center w-full z-30">
         <div
           class="flex items-center relative justify-center mx-auto w-5/6">
           <div v-if="!showCard" class="profile absolute left-0 top-0 flex items-center w-1/3">
@@ -45,9 +45,9 @@
         </div>
       </div>
       
-      <portfolio class="fixed top-32 big:left-20 left-28" v-if="showCard" @open="showDP = !showDP" @close="showCard = !showCard" />
-      <div class="content flex justify-end w-10/12 mx-auto space-x-5">
-        <div :class="varWidth" class="mt-8">
+      <portfolio :selectedTab="selectedTab" class="fixed top-32 big:left-20 left-28" v-if="showCard" @open="showDP = !showDP" @close="showCard = !showCard" />
+      <div class="content relative flex flex-col items-end justify-end w-11/12 mx-auto space-x-5">
+        <div :class="varWidth">
           <port-images :selectedTab="selectedTab" />
           <availability :selectedTab="selectedTab" />
           <pricing :selectedTab="selectedTab" />
@@ -75,7 +75,7 @@ export default {
       tabs: ["Portfolio", "Availability", "Pricing Package"],
       selectedTab: "Portfolio",
       showCard: false,
-      showDP: false
+      showDP: false,
     };
   },
   beforeMount () {

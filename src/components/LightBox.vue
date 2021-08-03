@@ -90,7 +90,7 @@ export default {
 
     showLightBox: {
       type: Boolean,
-      default: true,
+      default: false,
     },
 
     closable: {

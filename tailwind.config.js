@@ -8,7 +8,11 @@ module.exports = {
           base: "#4D4D4D",
           pri: "#E39400",
           body: "#FFFDF7",
-          fade: "#4D4D4D"
+          bright: "#FFAA0A",
+          list: "#FEF5E6",
+          book: "#F29F05",
+          desc: "#707070",
+          btn: "#F4F4F4"
         }
       },
       screens: {
