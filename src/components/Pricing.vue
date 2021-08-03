@@ -8,44 +8,20 @@
         <h4 class="w-1/4 text-right">Date Created</h4>
         <h4 class="w-1/6 text-right">Amount</h4>
       </div>
-      <div @click="showSingle = !showSingle" class="pack px-5 py-3 text-px-base flex items-center justify-between">
-        <p class="w-2/5">Wedding Classic</p>
-        <p class="w-1/4">Wedding</p>
-        <p class="w-1/6 text-right">15</p>
-        <p class="w-1/4 text-right">5th Sep, 2020</p>
-        <p class="w-1/6 text-right">N350,000</p>
-      </div>
       <div
-        @click="showSingle = !showSingle"
-        class="pack cursor-pointer px-5 py-3 text-px-base flex items-center justify-between">
-        <p class="w-2/5">Beauty Campaign</p>
-        <p class="w-1/4">Beauty</p>
-        <p class="w-1/6 text-right">2</p>
-        <p class="w-1/4 text-right">5th Sep, 2020</p>
-        <p class="w-1/6 text-right">N45,000</p>
-      </div>
-      <div
-        @click="showSingle = !showSingle"
-        class="pack px-5 py-3 text-px-base flex items-center justify-between"
+        class="w-full pack cursor-pointer px-5 py-3 text-px-base flex items-center justify-between"
+        v-for="item in packages"
+        :key="item.items"
+        @click="showData(item.title)"
       >
-        <p class="w-2/5">Prewedding Gold</p>
-        <p class="w-1/4">Wedding</p>
-        <p class="w-1/6 text-right">2</p>
-        <p class="w-1/4 text-right">5th Sep, 2020</p>
-        <p class="w-1/6 text-right">N45,000</p>
-      </div>
-      <div
-        @click="showSingle = !showSingle"
-        class="pack px-5 py-3 text-px-base flex items-center justify-between"
-      >
-        <p class="w-2/5">Culinary Photography</p>
-        <p class="w-1/4">Food</p>
-        <p class="w-1/6 text-right">18</p>
-        <p class="w-1/4 text-right">5th Sep, 2020</p>
-        <p class="w-1/6 text-right">N75,000</p>
+        <p class="w-2/5">{{ item.title }}</p>
+        <p class="w-1/4">{{ item.category}}</p>
+        <p class="w-1/6 text-right">{{ item.items }}</p>
+        <p class="w-1/4 text-right">{{ item.created }}</p>
+        <p class="w-1/6 text-right">{{ item.amount }}</p>
       </div>
     </div>
-    <single-package v-if="showSingle" @close="showSingle = !showSingle" />
+    <single-package :routeName="routeName" v-if="showSingle" @close="showSingle = !showSingle" />
   </div>
 </template>
 
@@ -56,7 +32,46 @@ export default {
   props: ["selectedTab"],
   data() {
     return {
-      showSingle: false
+      showSingle: false,
+      routeName: "",
+      packages: [
+        {
+          title: "Wedding Classic",
+          category: "Wedding",
+          items: 15,
+          created: "5th Sep, 2020",
+          amount: "N350,000"
+        },
+        {
+          title: "Beauty Campaign",
+          category: "Beauty",
+          items: 2,
+          created: "5th Sep, 2020",
+          amount: "N45,000"
+        },
+        {
+          title: "Prewedding Gold",
+          category: "Wedding",
+          items: 2,
+          created: "5th Sep, 2020",
+          amount: "N45,000"
+        },
+        {
+          title: "Culinary Photography",
+          category: "Food",
+          items: 18,
+          created: "5th Sep, 2020",
+          amount: "N75,000"
+        },
+      ]
+    }
+  },
+  methods: {
+    showData(title) {
+      this.showSingle = !this.showSingle;
+      this.routeName = title;
+
+
     }
   },
 }

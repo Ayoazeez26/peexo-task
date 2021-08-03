@@ -37,6 +37,9 @@
           @mouseover="showDesc(image.id)"
           @mouseout="remDesc(image.id)"
         >
+          <div class="liked-img absolute right-3 top-3 hidden min-w-max rounded-full bg-px-pri p-2">
+            <img src="../assets/heart-fill.svg" alt="liked">
+          </div>
           <img
             :src="getImg(image.src)"
             class="img-rounded"
@@ -49,6 +52,7 @@
             <div class="likes flex mx-2">
               <img
                 class="w-4 h-4 mr-1"
+                @click="toggleLike"
                 src="../assets/heart-line.svg"
                 alt="likes"
               />
@@ -83,6 +87,9 @@
           @mouseover="showDesc(image.id)"
           @mouseout="remDesc(image.id)"
         >
+          <div class="liked-img absolute right-3 top-3 hidden min-w-max rounded-full bg-px-pri p-2">
+            <img src="../assets/heart-fill.svg" alt="liked">
+          </div>
           <img
             :src="getImg(image.src)"
             class="img-rounded"
@@ -95,6 +102,7 @@
             <div class="likes flex mx-2">
               <img
                 class="w-4 h-4 mr-1"
+                @click="toggleLike"
                 src="../assets/heart-line.svg"
                 alt="likes"
               />
@@ -129,6 +137,9 @@
           @mouseover="showDesc(image.id)"
           @mouseout="remDesc(image.id)"
         >
+          <div class="liked-img absolute right-3 top-3 hidden min-w-max rounded-full bg-px-pri p-2">
+            <img src="../assets/heart-fill.svg" alt="liked">
+          </div>
           <img
             :src="getImg(image.src)"
             class="img-rounded"
@@ -141,6 +152,7 @@
             <div class="likes flex mx-2">
               <img
                 class="w-4 h-4 mr-1"
+                @click="toggleLike"
                 src="../assets/heart-line.svg"
                 alt="likes"
               />
@@ -197,6 +209,13 @@ export default {
     },
     openGallery(index) {
       this.$refs.lightbox.showImage(index)
+    },
+    toggleLike(event) {
+      if (event.target.parentElement.parentElement.parentElement.children[0].classList.contains("hidden")) {
+        event.target.parentElement.parentElement.parentElement.children[0].classList.replace("hidden", "flex");
+      } else {
+        event.target.parentElement.parentElement.parentElement.children[0].classList.replace("flex", "hidden")
+      }
     }
   },
 };

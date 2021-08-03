@@ -25,7 +25,12 @@ export default {
   components: {
     FunctionalCalendar
   },
-  props: ["selectedTab"],
+  props: {
+    selectedTab: {
+      type: String,
+      default: "Availability"
+    },
+  },
   data() {
     return {
       calendarData: {},
@@ -34,7 +39,7 @@ export default {
         markedDates: ['8/8/2021', '9/8/2021', '10/8/2021', '11/8/2021', '12/8/2021', '13/8/2021', '14/8/2021', '15/8/2021']
       }
     }
-  },
+  }
 }
 </script>
 

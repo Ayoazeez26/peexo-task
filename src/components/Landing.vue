@@ -35,9 +35,10 @@
             <h4
               v-for="(tab, index) in tabs"
               :key="index"
+              ref="tab"
               class="cursor-pointer text-sm mx-2 px-5 py-3 relative"
               :class="{ activeTab: selectedTab === tab }"
-              @click="selectedTab = tab"
+              @click="portShow(tab)"
             >
               {{ tab }}
             </h4>
@@ -46,11 +47,17 @@
       </div>
       
       <portfolio :selectedTab="selectedTab" class="fixed top-32 big:left-20 left-28" v-if="showCard" @open="showDP = !showDP" @close="showCard = !showCard" />
-      <div class="content relative flex flex-col items-end justify-end w-11/12 mx-auto space-x-5">
+      <div class="content pb-10 relative flex flex-col items-end justify-end w-11/12 mx-auto space-x-5">
         <div :class="varWidth">
-          <port-images :selectedTab="selectedTab" />
-          <availability :selectedTab="selectedTab" />
-          <pricing :selectedTab="selectedTab" />
+          <port-images
+            :selectedTab="selectedTab"
+          />
+          <availability
+            :selectedTab="selectedTab"
+          />
+          <pricing
+            :selectedTab="selectedTab"
+          />
         </div>
       </div>
     </section>
@@ -81,6 +88,9 @@ export default {
   beforeMount () {
     window.addEventListener('scroll', this.handleScroll);
   },
+  mounted () {
+    this.$refs.tab.onclick = this.setCard;
+  },
   computed: {
     varWidth() {
       // let width = "w-full";
@@ -92,6 +102,15 @@ export default {
     }
   },
   methods: {
+    portShow(tab) {
+      this.selectedTab = tab;
+      this.showCard = true;
+    },
+    setCard() {
+      if (this.selectedTab === "Availability" || this.selectedTab === "Pricing Package") {
+        this.showCard = true;
+      }
+    },
     handleScroll () {
       if(window.pageYOffset>0){
         // user is scrolled

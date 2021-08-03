@@ -2,7 +2,7 @@
   <div class="w-11/12">
     <div class="head flex items-center mb-3 w-full">
       <p @click="$emit('close')" class="cursor-pointer self-end mr-3 mt-2 text-sm w-1/3 text-px-pri">Go Back</p>
-      <p class="font-bold text-sm w-1/2">Beauty Campaign</p>
+      <p class="font-bold text-sm w-1/2">{{ routeName }}</p>
     </div>
     <div class="packages text-left text-sm w-full">
       <div class="pack-head px-5 py-3 rounded bg-px-list flex items-center justify-between">
@@ -56,7 +56,7 @@
 
 <script>
 export default {
- 
+ props: ["routeName"]
 }
 </script>
 

@@ -3,13 +3,13 @@
     <p
       v-if="selectedTab === 'Portfolio'"
       @click="$emit('close')"
-      :class="{ hiddenBtn: selectedTab !== 'Portfolio' }"
       class="cursor-pointer self-end mr-3 mt-2 text-sm text-px-pri"
     >
       Hide
     </p>
     <img
       @click="$emit('open')"
+      :class="{ hiddenBtn: selectedTab !== 'Portfolio' }"
       class=" w-28"
       src="../assets/avi.png"
       alt="user avatar"

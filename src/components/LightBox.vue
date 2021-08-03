@@ -13,28 +13,59 @@
         class="vib-container"
       >
         <div
-          class="vib-content"
+          class="vib-content relative"
           @click.stop
         >
-          <transition
-            mode="out-in"
-            :name="imageTransitionName"
-          >
             <img
               v-if="currentMedia.type == undefined || currentMedia.type == 'image'"
               :key="currentMedia.src"
               :src="showImg(currentMedia.src)"
               :srcset="currentMedia.srcset || ''"
-              class="vib-image rounded-xl"
+              class="vib-image rounded-xl rounded-bl-none"
               :alt="currentMedia.caption"
             >
-          </transition>
+            <div
+              class="cap cap-desc bg-white h-14 flex px-4 items-center justify-between absolute -bottom-14 w-full left-0 rounded-b-cus">
+                <img
+                  class="w-4 h-4"
+                  src="../assets/heart-line.svg"
+                  alt="likes"
+                />
+                <img
+                  class="w-4 h-4"
+                  src="../assets/dislike-line.svg"
+                  alt="likes"
+                />
+                <div class="likes flex">
+                  <img
+                    class="w-4 h-4 mr-1"
+                    src="../assets/heart-line.svg"
+                    alt="likes"
+                  />
+                  <p>5,349</p>
+                </div>
+                <div class="dislikes flex">
+                  <img
+                    class="w-4 h-4 mr-1"
+                    src="../assets/dislike-line.svg"
+                    alt="likes"
+                  />
+                  <p>23</p>
+                </div>
+                <div class="views flex">
+                  <img
+                    class="w-4 h-4 mr-1"
+                    src="../assets/eye-off-line.svg"
+                    alt="likes"
+                  />
+                  <p>24,023</p>
+                </div>
+            </div>
         </div> <!-- .vib-content -->
-
+       
         <div
           v-if="showThumbs"
-          class="vib-thumbnail-wrapper vib-hideable"
-          :class="{ 'vib-hidden': controlsHidden }"
+          class="vib-thumbnail-wrapper"
           @click.stop
           @mouseover="interfaceHovered = true"
           @mouseleave="interfaceHovered = false"
@@ -57,26 +88,7 @@
 </template>
 
 <script>
-// import LeftArrowIcon from './LeftArrowIcon'
-// import RightArrowIcon from './RightArrowIcon'
-// import CloseIcon from './CloseIcon'
-// import VideoIcon from './VideoIcon'
-
-// let Hammer
-
-// // istanbul ignore else
-// if (typeof window !== 'undefined') {
-//   Hammer = require('hammerjs')
-// }
-
 export default {
-  // components: {
-  //   LeftArrowIcon,
-  //   RightArrowIcon,
-  //   CloseIcon,
-  //   VideoIcon,
-  // },
-
   props: {
     media: {
       type: Array,
@@ -335,7 +347,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /* general style */
 
 .vib-open {
@@ -389,7 +401,7 @@ export default {
 
 .vib-image {
   cursor: pointer;
-  max-height: calc(60vh);
+  max-height: calc(50vh);
   cursor: pointer;
   display: block;
   height: auto;
@@ -437,6 +449,23 @@ export default {
   margin: 2px 2px 0 2px;
   overflow: hidden;
   width: 98px;
+}
+
+.vib-footer {
+  box-sizing: border-box;
+  display: flex;
+  line-height: 1.3;
+  padding: 10px;
+  justify-content: space-between;
+  text-align: left;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.cap-desc {
+  width: 100%;
+  max-width: 333px;
 }
 
 /* image transitions */
